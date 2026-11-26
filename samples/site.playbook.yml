@@ -1,0 +1,40 @@
+---
+- name: Configure web tier
+  hosts: webservers
+  become: true
+  tags: [web, deploy]
+  vars:
+    app_env: production
+    db_password: "PlaintextDbPassword99!"
+  roles:
+    - common
+    - nginx
+  tasks:
+    - name: Install nginx package
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+      notify: Reload nginx
+
+    - name: Run database migration script
+      ansible.builtin.shell: /opt/app/migrate.sh --env {{ app_env }}
+      ignore_errors: true
+      tags: [migrate]
+
+    - name: Render application config
+      ansible.builtin.template:
+        src: app.conf.j2
+        dest: /etc/app/app.conf
+      when: app_env == "production"
+      notify: Restart app
+
+  handlers:
+    - name: Reload nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
+
+    - name: Restart app
+      ansible.builtin.service:
+        name: app
+        state: restarted

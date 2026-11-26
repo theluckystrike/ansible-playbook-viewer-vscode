@@ -1,0 +1,326 @@
+{
+  "name": "zovo-ansible-playbook-viewer",
+  "displayName": "Ansible Playbook Viewer",
+  "description": "Inspect Ansible playbooks and INI inventories in VS Code: plays, roles, tasks, handlers, host tags, variables and static checks, offline.",
+  "version": "0.1.0",
+  "publisher": "zovo",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#1F1215",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theluckystrike/ansible-playbook-viewer-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/theluckystrike/ansible-playbook-viewer-vscode/issues"
+  },
+  "homepage": "https://github.com/theluckystrike/ansible-playbook-viewer-vscode#readme",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization"
+  ],
+  "keywords": [
+    "ansible",
+    "playbook",
+    "inventory",
+    "yaml",
+    "devops",
+    "automation",
+    "iac",
+    "security"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onUri",
+    "onCustomEditor:zovo-ans.viewer"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "zovo-ans.viewer",
+        "displayName": "Ansible Playbook Viewer",
+        "selector": [
+          {
+            "filenamePattern": "playbook.yml"
+          },
+          {
+            "filenamePattern": "playbook.yaml"
+          },
+          {
+            "filenamePattern": "site.yml"
+          },
+          {
+            "filenamePattern": "*.playbook.yml"
+          },
+          {
+            "filenamePattern": "inventory.ini"
+          },
+          {
+            "filenamePattern": "hosts.ini"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "zovoAns.openWith",
+        "title": "Open in Ansible Playbook Viewer",
+        "category": "Ansible Playbook Viewer",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "zovoAns.openSample",
+        "title": "Open the Sample Ansible Playbook",
+        "category": "Ansible Playbook Viewer"
+      },
+      {
+        "command": "zovoAns.openWalkthrough",
+        "title": "Get Started",
+        "category": "Ansible Playbook Viewer"
+      },
+      {
+        "command": "zovoAns.moreViewers",
+        "title": "More free tools by Zovo",
+        "category": "Ansible Playbook Viewer"
+      },
+      {
+        "command": "zovoAns.supportDeveloper",
+        "title": "Support the developer",
+        "category": "Ansible Playbook Viewer"
+      },
+      {
+        "command": "zovoAns.auditPlaybook",
+        "title": "Audit Ansible playbook idempotency and security (Pro, 1 free try)",
+        "category": "Ansible Playbook Viewer"
+      },
+      {
+        "command": "zovoAns.diffPlaybooks",
+        "title": "Compare two Ansible playbooks or inventories (Pro, 1 free try)",
+        "category": "Ansible Playbook Viewer"
+      },
+      {
+        "command": "zovoAns.exportRunbook",
+        "title": "Export Markdown task runbook and inventory CSV (Pro, 1 free try)",
+        "category": "Ansible Playbook Viewer"
+      },
+      {
+        "command": "zovoAns.zovoPro.auditPlaybook",
+        "title": "Zovo Pro: Audit Ansible playbook idempotency and security"
+      },
+      {
+        "command": "zovoAns.zovoPro.diffPlaybooks",
+        "title": "Zovo Pro: Compare two Ansible playbooks or inventories"
+      },
+      {
+        "command": "zovoAns.zovoPro.exportRunbook",
+        "title": "Zovo Pro: Export Markdown task runbook and inventory CSV"
+      },
+      {
+        "command": "zovoAns.zovoTitle.auditPlaybook",
+        "title": "Zovo Pro: Audit Ansible playbook idempotency and security"
+      },
+      {
+        "command": "zovoAns.zovoTitle.diffPlaybooks",
+        "title": "Zovo Pro: Compare two Ansible playbooks or inventories"
+      },
+      {
+        "command": "zovoAns.zovoTitle.exportRunbook",
+        "title": "Zovo Pro: Export Markdown task runbook and inventory CSV"
+      },
+      {
+        "command": "zovoAns.getPro",
+        "title": "Get Zovo Pro (USD 19 once, all Zovo extensions)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "zovoAns.payWithPayPal",
+        "title": "Pay for Zovo Pro with PayPal (USD 19, team of 5 USD 59)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "zovoAns.unlockWithSponsors",
+        "title": "I already paid: unlock with GitHub Sponsors",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "zovoAns.enterLicenseKey",
+        "title": "Enter Zovo Pro license key",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "zovoAns.removeLicense",
+        "title": "Remove Zovo Pro from this editor",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "zovoAns.payByCard",
+        "title": "Pay for Zovo Pro by card (USD 19)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "zovoAns.enterKey",
+        "title": "Enter a key",
+        "category": "Zovo Pro"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "zovoAns.zovoTitle.auditPlaybook",
+          "when": "activeCustomEditorId == 'zovo-ans.viewer' && config.zovoAns.showProTools",
+          "group": "zovoPro@1"
+        },
+        {
+          "command": "zovoAns.zovoTitle.diffPlaybooks",
+          "when": "activeCustomEditorId == 'zovo-ans.viewer' && config.zovoAns.showProTools",
+          "group": "zovoPro@2"
+        },
+        {
+          "command": "zovoAns.zovoTitle.exportRunbook",
+          "when": "activeCustomEditorId == 'zovo-ans.viewer' && config.zovoAns.showProTools",
+          "group": "zovoPro@3"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "zovoAns.openWith",
+          "when": "resourceFilename =~ /(^playbook\\.ya?ml$|^site\\.yml$|\\.playbook\\.yml$|^(inventory|hosts)\\.ini$)/i && !explorerResourceIsFolder",
+          "group": "navigation@9"
+        },
+        {
+          "command": "zovoAns.zovoPro.auditPlaybook",
+          "when": "resourceFilename =~ /(^playbook\\.ya?ml$|^site\\.yml$|\\.playbook\\.yml$|^(inventory|hosts)\\.ini$)/i && !explorerResourceIsFolder && config.zovoAns.showProTools",
+          "group": "zovoPro@1"
+        },
+        {
+          "command": "zovoAns.zovoPro.diffPlaybooks",
+          "when": "resourceFilename =~ /(^playbook\\.ya?ml$|^site\\.yml$|\\.playbook\\.yml$|^(inventory|hosts)\\.ini$)/i && !explorerResourceIsFolder && config.zovoAns.showProTools",
+          "group": "zovoPro@2"
+        },
+        {
+          "command": "zovoAns.zovoPro.exportRunbook",
+          "when": "resourceFilename =~ /(^playbook\\.ya?ml$|^site\\.yml$|\\.playbook\\.yml$|^(inventory|hosts)\\.ini$)/i && !explorerResourceIsFolder && config.zovoAns.showProTools",
+          "group": "zovoPro@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "zovoAns.auditPlaybook",
+          "when": "config.zovoAns.showProTools"
+        },
+        {
+          "command": "zovoAns.diffPlaybooks",
+          "when": "config.zovoAns.showProTools"
+        },
+        {
+          "command": "zovoAns.exportRunbook",
+          "when": "config.zovoAns.showProTools"
+        },
+        {
+          "command": "zovoAns.zovoPro.auditPlaybook",
+          "when": "false"
+        },
+        {
+          "command": "zovoAns.zovoPro.diffPlaybooks",
+          "when": "false"
+        },
+        {
+          "command": "zovoAns.zovoPro.exportRunbook",
+          "when": "false"
+        },
+        {
+          "command": "zovoAns.zovoTitle.auditPlaybook",
+          "when": "false"
+        },
+        {
+          "command": "zovoAns.zovoTitle.diffPlaybooks",
+          "when": "false"
+        },
+        {
+          "command": "zovoAns.zovoTitle.exportRunbook",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Ansible Playbook Viewer",
+      "properties": {
+        "zovoAns.maxFileMB": {
+          "type": "number",
+          "default": 8,
+          "minimum": 1,
+          "maximum": 64,
+          "description": "Files up to this size open in Ansible Playbook Viewer."
+        },
+        "zovoAns.pageSize": {
+          "type": "number",
+          "default": 100,
+          "minimum": 20,
+          "maximum": 500,
+          "description": "Playbook tasks or inventory hosts shown on one page."
+        },
+        "zovoAns.showProTools": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the Zovo Pro tools (idempotency audit, playbook diff and runbook export) in the Command Palette, the Explorer menu, the editor title menu and the viewer toolbar. Everything free stays visible."
+        },
+        "zovoAns.askForRating": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask once for a store rating after 3 Ansible files open without an error across 2 days. Choosing No thanks never asks again. Nothing is sent anywhere."
+        },
+        "zovoAns.showSupportLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the small Rate, More free tools and Zovo Pro links at the bottom of the viewer. Nothing is sent anywhere."
+        },
+        "zovo.ansview.trial.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the 7-day Zovo Pro trial button in the Pro panel."
+        }
+      }
+    },
+    "walkthroughs": [
+      {
+        "id": "zovoAns.start",
+        "title": "Get started with Ansible Playbook Viewer",
+        "description": "Inspect playbook.yml, site.yml, *.playbook.yml, inventory.ini and hosts.ini files in VS Code: plays, roles, tasks, handlers, host tags, variables and static checks, offline.",
+        "steps": [
+          {
+            "id": "open",
+            "title": "Open an Ansible playbook or inventory",
+            "description": "Click any playbook.yml, site.yml, *.playbook.yml, inventory.ini or hosts.ini file in the Explorer, or run Open in Ansible Playbook Viewer.\n[Open the sample Ansible playbook](command:zovoAns.openSample)",
+            "media": {
+              "image": "images/screenshot.png",
+              "altText": "An Ansible playbook open in the viewer showing plays, roles, tasks, handlers, variables and idempotency findings."
+            },
+            "completionEvents": [
+              "onCommand:zovoAns.openSample"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node scripts/test.js",
+    "package": "npx -y @vscode/vsce@3 package --no-dependencies"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/theluckystrike/sponsorships?tier_id=679878"
+  }
+}
